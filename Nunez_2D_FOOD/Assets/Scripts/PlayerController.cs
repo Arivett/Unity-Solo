@@ -16,11 +16,19 @@ public class PlayerController : MonoBehaviour
     {
       input = GetComponent<PlayerInput>();
       rb = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rb.linearVelocity = moveInput * speed;
     }
+
+
+    public void Move(InputAction.CallbackContext context)
+    {
+     moveInput = context.ReadValue<Vector2>();
+    }
+
 }
