@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag = "Weapon")
+        if (collision.gameObject.tag == "Weapon")
         {
             collision.gameObject.transform.SetPositionAndRotation(weaponSlot.position, new Quaternion(0, 0, -90f, 90));
 
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
             collision.collider.enabled = false;
 
-            currentWeaponObj = collision.gameObject;
+            currentWeaponOb = collision.gameObject;
             canAttack = true;
 
         }
