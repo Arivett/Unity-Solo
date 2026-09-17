@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 moveInput = Vector2.zero;
 
-    public GameObject currentWeaponOb;
+    public GameObject currentWeaponObj;
     Transform weaponSlot;
     PlayerInput input;
     Rigidbody2D rb;
@@ -43,10 +43,10 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        if (currentWeaponOb != null & canAttack )
+        if (currentWeaponObj != null & canAttack )
         {
             isAttacking = true;
-            currentWeaponOb.transform.GetChild(0).gameObject.SetActive(true);
+            currentWeaponObj.transform.GetChild(0).gameObject.SetActive(true);
             canAttack = false;
             StartCoroutine("attackDuration");
         }
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(attackTime);
 
         isAttacking = false;
-        currentWeaponOb.transform.GetChild(0).gameObject.SetActive(false);
+        currentWeaponObj.transform.GetChild(0).gameObject.SetActive(false);
         StartCoroutine("attackCooldown");
 
     }
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
             collision.collider.enabled = false;
 
-            currentWeaponOb = collision.gameObject;
+            currentWeaponObj = collision.gameObject;
             canAttack = true;
 
         }
