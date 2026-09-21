@@ -149,4 +149,6 @@ public class PlayerController : MonoBehaviour
         
         hazardDmg = false;
     }
+
+
 }
