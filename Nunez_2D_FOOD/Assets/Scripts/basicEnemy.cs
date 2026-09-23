@@ -7,14 +7,16 @@ public class basicEnemy : MonoBehaviour
 
     public int health = 3;
 
-    public float range = 5;
+    public float dectectionDistance = 5;
+    public float stoppingDisatance = 1;
     public float speed = 3;
-    public float attackTime = 1f;
-    public float attackCooldownTime = 1f;
+    public float damageTime = 1;
+    public float damageCooldownTime = 1;
 
     public bool isFollowing = false;
     public bool isAttacking = false;
     public bool canAttack = false;
+    public bool basicEnemyDmg = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,8 +28,8 @@ public class basicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(player.transform.position.x - transform.position.x) <= range &&
-            Mathf.Abs(player.transform.position.y - transform.position.y) <= range)
+        if (Mathf.Abs(player.transform.position.x - transform.position.x) <= dectectionDistance)
+            Mathf.Abs(player.transform.position.y - transform.position.y) <= stoppingDisatance)
             isFollowing = true;
         else
             isFollowing = false;
@@ -35,12 +37,19 @@ public class basicEnemy : MonoBehaviour
 
         if (isFollowing)
         {
-            rb.rotation = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
-
-            rb.linearVelocity = (transform.right * speed);
+            if (player.transform.position.x > transform.position.x)
+            {
+                rb.linearVelocityX = speed;
+            }
+            if (player.transform.position.x < transform.position.x)
+            {
+                rb.linearVelocityX = -speed;
+            }
+            if (dectectionDistance <= stoppingDisatance)
+                rb.linearVelocityX = 0;
         }
         else
-            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocityX = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,6 +57,13 @@ public class basicEnemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             health--;
+        }
+
+        if (collision.gameObject.tag == "basicEnemy")
+        { 
+           if (!basicEnemyDmg)
+                StartCorountine("basicEnemyDmg")
+                basicEnemyDmg = true;
         }
     }
 
@@ -59,11 +75,23 @@ public class basicEnemy : MonoBehaviour
 
             //attack (do damage)
 
-            //apply damge cooldown(probaly with a coroutine
+          //if 
 
+            //apply damagecooldown(probaly with a coroutine
+
+          //if 
 
             //resume movemnet
 
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "basicEnemy")
+        {
+            if (basicEnemyDmg)
+        }
+    }
+
 }
