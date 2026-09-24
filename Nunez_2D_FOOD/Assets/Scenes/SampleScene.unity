@@ -1298,7 +1298,7 @@ Transform:
   m_GameObject: {fileID: 850495856}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.84, y: -0, z: 0}
+  m_LocalPosition: {x: -14.91, y: -0.05, z: 0}
   m_LocalScale: {x: 1.7475761, y: 5.9388556, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1395,7 +1395,7 @@ GameObject:
   - component: {fileID: 1315514854}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1573,7 +1573,7 @@ Transform:
   m_GameObject: {fileID: 1456007431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.0041, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0.02, z: 0}
   m_LocalScale: {x: 0.9639484, y: 15.761577, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1786,12 +1786,12 @@ Transform:
   m_GameObject: {fileID: 1475949213}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.68, y: -0.7, z: 0}
-  m_LocalScale: {x: 1.096, y: -0.14596435, z: 1}
+  m_LocalPosition: {x: 16.702, y: 0.233, z: 0}
+  m_LocalScale: {x: 0.93779546, y: -0.12397219, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 623901958}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1792740619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481088441
 GameObject:
@@ -2085,7 +2085,7 @@ GameObject:
   - component: {fileID: 1674186219}
   m_Layer: 0
   m_Name: basicEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2208,13 +2208,16 @@ MonoBehaviour:
   player: {fileID: 0}
   rb: {fileID: 0}
   health: 3
-  range: 2
+  dectectionDistance: 5
+  stoppingDisatance: 1
   speed: 3
-  attackTime: 1
-  attackCooldownTime: 1
+  damageTime: 1
+  damageCooldownTime: 1
   isFollowing: 0
   isAttacking: 0
   canAttack: 0
+  basicEnemyDmg: 0
+  enemyWeaponObj: {fileID: 0}
 --- !u!61 &1674186220
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2454,10 +2457,11 @@ Transform:
   m_GameObject: {fileID: 1792740618}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.125652, y: -0.963047, z: 0}
+  m_LocalPosition: {x: -18.71, y: -0.963047, z: 0}
   m_LocalScale: {x: 1.1686983, y: 1.1773959, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1475949217}
   m_Father: {fileID: 1674186218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
@@ -2477,5 +2481,4 @@ SceneRoots:
   - {fileID: 1315514857}
   - {fileID: 1481088444}
   - {fileID: 1138160447}
-  - {fileID: 1475949217}
   - {fileID: 1674186218}
