@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System.Collections;
 using UnityEngine;
 
 public class basicEnemy : MonoBehaviour
@@ -18,6 +20,9 @@ public class basicEnemy : MonoBehaviour
     public bool canAttack = false;
     public bool basicEnemyDmg = false;
 
+    public GameObject enemyWeaponObj;
+    Transform enemyWeaponSlot;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,28 +33,40 @@ public class basicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Abs(player.transform.position.x - transform.position.x) <= dectectionDistance)
-            Mathf.Abs(player.transform.position.y - transform.position.y) <= stoppingDisatance)
-            isFollowing = true;
-        else
-            isFollowing = false;
+        float targetDistance = Vector2.Distance(player.transform.position, transform.position);
 
+        isFollowing = targetDistance <= dectectionDistance;
 
         if (isFollowing)
         {
-            if (player.transform.position.x > transform.position.x)
-            {
-                rb.linearVelocityX = speed;
-            }
-            if (player.transform.position.x < transform.position.x)
-            {
-                rb.linearVelocityX = -speed;
-            }
-            if (dectectionDistance <= stoppingDisatance)
-                rb.linearVelocityX = 0;
+            rb.rotation = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg;
+
+            rb.linearVelocity = transform.right * speed;
         }
         else
-            rb.linearVelocityX = 0;
+            rb.linearVelocity = Vector2.zero;
+    }
+
+    public void Attack()
+    {
+        if (enemyWeaponObj != null && canAttack)
+        { 
+         isAttacking = true;
+            enemyWeaponObj.transform.GetChild(0).gameObject.SetActive(false);
+            StartCoroutine("damgeCooldownTime");
+        }
+    }
+
+    IEnumerator damage()
+    {
+        yield return new WaitForSeconds(damageTime);
+    }
+
+    IEnumerator damageCooldown()
+    {
+        yield return new WaitForSeconds(damageCooldownTime);
+
+        canAttack = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -60,9 +77,9 @@ public class basicEnemy : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "basicEnemy")
-        { 
-           if (!basicEnemyDmg)
-                StartCorountine("basicEnemyDmg")
+        {
+            if (!basicEnemyDmg)
+                StartCoroutine("basicEnemyDmg");
                 basicEnemyDmg = true;
         }
     }
@@ -73,16 +90,11 @@ public class basicEnemy : MonoBehaviour
         {
             //Stop the character
 
-            //attack (do damage)
-
-          //if 
+            //attack (do damage
 
             //apply damagecooldown(probaly with a coroutine
 
-          //if 
-
             //resume movemnet
-
         }
     }
 
@@ -91,7 +103,11 @@ public class basicEnemy : MonoBehaviour
         if (collision.gameObject.tag == "basicEnemy")
         {
             if (basicEnemyDmg)
+            {
+
+            }
         }
+
     }
 
 }
